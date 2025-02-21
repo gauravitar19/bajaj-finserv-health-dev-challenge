@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -56,38 +57,33 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto space-y-8">
+    <div className="min-h-screen bg-white py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-2xl mx-auto space-y-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <Card className="p-6 backdrop-blur-sm bg-white/80 border-0 shadow-lg">
-            <h1 className="text-2xl font-semibold text-gray-900 mb-6">
-              Data Processor
-            </h1>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  JSON Input
-                </label>
-                <Input
-                  className="font-mono"
-                  placeholder='{ "data": ["A", "1", "B", "2"] }'
-                  value={jsonInput}
-                  onChange={(e) => setJsonInput(e.target.value)}
-                />
-              </div>
-              <Button
-                className="w-full transition-all duration-200 hover:shadow-md"
-                onClick={handleSubmit}
-                disabled={isLoading}
-              >
-                {isLoading ? "Processing..." : "Process Data"}
-              </Button>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-600 mb-2">
+                API Input
+              </label>
+              <Input
+                className="font-mono w-full border border-gray-300"
+                placeholder='{ "data": ["M", "1", "334", "4", "B"] }'
+                value={jsonInput}
+                onChange={(e) => setJsonInput(e.target.value)}
+              />
             </div>
-          </Card>
+            <Button
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+              onClick={handleSubmit}
+              disabled={isLoading}
+            >
+              {isLoading ? "Processing..." : "Submit"}
+            </Button>
+          </div>
         </motion.div>
 
         {response && (
@@ -96,7 +92,7 @@ const Index = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Card className="p-6 backdrop-blur-sm bg-white/80 border-0 shadow-lg">
+            <div className="space-y-4">
               <MultiSelect
                 selected={selectedFilters}
                 onChange={setSelectedFilters}
@@ -105,7 +101,7 @@ const Index = () => {
                 response={response}
                 selectedFilters={selectedFilters}
               />
-            </Card>
+            </div>
           </motion.div>
         )}
       </div>

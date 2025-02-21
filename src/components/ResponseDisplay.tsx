@@ -17,47 +17,34 @@ interface ResponseDisplayProps {
 }
 
 const ResponseDisplay = ({ response, selectedFilters }: ResponseDisplayProps) => {
-  const renderSection = (title: string, data: any, filter: string) => {
-    if (!selectedFilters.includes(filter)) return null;
-
+  const renderSection = (title: string, data: any) => {
     return (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
         transition={{ duration: 0.3 }}
-        className="space-y-2"
+        className="space-y-1"
       >
-        <h3 className="text-sm font-medium text-gray-500">{title}</h3>
-        <div className="flex flex-wrap gap-2">
-          {Array.isArray(data) ? (
-            data.map((item, index) => (
-              <span
-                key={index}
-                className="px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-700"
-              >
-                {item}
-              </span>
-            ))
-          ) : (
-            <span className="text-gray-700">{data}</span>
-          )}
+        <div className="flex">
+          <span className="text-gray-700 font-medium">{title}:</span>
+          <span className="ml-2 text-gray-900">
+            {Array.isArray(data) ? data.join(',') : data}
+          </span>
         </div>
       </motion.div>
     );
   };
 
   return (
-    <div className="mt-6 space-y-6">
-      <AnimatePresence>
-        {renderSection("Numbers", response.numbers, "numbers")}
-        {renderSection("Alphabets", response.alphabets, "alphabets")}
-        {renderSection(
-          "Highest Alphabet",
-          response.highest_alphabet,
-          "highest_alphabet"
-        )}
-      </AnimatePresence>
+    <div className="mt-4">
+      <div className="text-sm text-gray-600 font-medium mb-2">Filtered Response</div>
+      <div className="space-y-2">
+        <AnimatePresence>
+          {selectedFilters.includes("numbers") && renderSection("Numbers", response.numbers)}
+          {selectedFilters.includes("highest_alphabet") && renderSection("Highest Alphabet", response.highest_alphabet)}
+        </AnimatePresence>
+      </div>
     </div>
   );
 };
