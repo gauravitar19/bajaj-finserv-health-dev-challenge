@@ -9,7 +9,42 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      api_responses: {
+        Row: {
+          alphabets: string[] | null
+          created_at: string | null
+          email: string
+          highest_alphabet: string[] | null
+          id: string
+          is_success: boolean | null
+          numbers: string[] | null
+          roll_number: string
+          user_id: string
+        }
+        Insert: {
+          alphabets?: string[] | null
+          created_at?: string | null
+          email: string
+          highest_alphabet?: string[] | null
+          id?: string
+          is_success?: boolean | null
+          numbers?: string[] | null
+          roll_number: string
+          user_id: string
+        }
+        Update: {
+          alphabets?: string[] | null
+          created_at?: string | null
+          email?: string
+          highest_alphabet?: string[] | null
+          id?: string
+          is_success?: boolean | null
+          numbers?: string[] | null
+          roll_number?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

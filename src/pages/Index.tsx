@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -7,6 +6,7 @@ import { useToast } from "@/components/ui/use-toast";
 import ResponseDisplay from "@/components/ResponseDisplay";
 import { MultiSelect } from "@/components/MultiSelect";
 import { motion } from "framer-motion";
+import { supabase } from "@/integrations/supabase/client";
 
 const Index = () => {
   const [jsonInput, setJsonInput] = useState("");
@@ -32,15 +32,13 @@ const Index = () => {
       setIsLoading(true);
       const parsedData = validateAndParseJSON(jsonInput);
       
-      const response = await fetch("YOUR_API_ENDPOINT", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(parsedData),
+      const { data, error } = await supabase.functions.invoke('bfhl', {
+        method: 'POST',
+        body: parsedData
       });
 
-      const data = await response.json();
+      if (error) throw error;
+
       setResponse(data);
       toast({
         title: "Success",
